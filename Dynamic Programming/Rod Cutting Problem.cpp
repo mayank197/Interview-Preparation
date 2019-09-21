@@ -15,13 +15,9 @@ int MaxProfit_DP(vector<int> prices){
 	int n = prices.size();
 	vector<int> dp(n+1,0);
 	dp[0] = 0;
-	for(int i=1;i<=n;i++){
-		int max_val = INT_MIN;
-		for(int j=0;j<i;j++){
-			max_val = max(max_val,prices[j]+dp[i-j-1]);
-		}
-		dp[i] = max_val;
-	}	
+	for(int i=1;i<=n;i++)
+		for(int j=0;j<i;j++)
+			dp[i] = max(dp[i],prices[j]+dp[i-j-1]);
 	return dp[n];
 }
 
