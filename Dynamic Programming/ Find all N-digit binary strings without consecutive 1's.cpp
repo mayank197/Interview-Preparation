@@ -34,13 +34,21 @@ int countStrings_DP(int n){
 	dp[1][1] = 1;     // If 1 is the last digit, we can have only one string "1"
 	
 	for(int i=2;i<=n;i++){
-		
 		dp[i][0] = dp[i-1][0] + dp[i-1][1];
-		
 		dp[i][1] = dp[i-1][0];
-		
 	}
 	return dp[n][0];		
+}
+
+// Printing all strings 
+void PrintAllStrings(int n, string result, int last_digit){
+	if(n==0){
+		cout<<result<<endl;
+		return;
+	}
+	PrintAllStrings(n-1,result+"0",0);
+	if(last_digit==0)
+		PrintAllStrings(n-1,result+"1",1);
 }
 
 int main(){
@@ -52,5 +60,9 @@ int main(){
 	cout<<"Number of "<<n<<" digit binary strings without consecutive 1's are : ";
 	// cout<<countStrings_Recursive(n,0);		// Recursive 
 	cout<<countStrings_DP(n);					// DP
+	
+	string result = "";
+	cout<<"\n\nAll strings with "<<n<<" digits without consecutive 1's are : \n";
+	PrintAllStrings(n,result,0);
 	
 }
